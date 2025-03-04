@@ -59,8 +59,8 @@ export default function UnixTerminal() {
         case 'help':
           // Table structure for commands with a box around it
           const table = [
-            ['Command', 'Description'],
-            ['help', 'Display this help message'],
+            ['about', 'Something About Me'],
+            ['links', 'Links to my other portfolios'],
             ['clear', 'Clear the terminal screen'],
             ['echo <message>', 'Display the provided message in the terminal'],
           ];
@@ -92,14 +92,169 @@ export default function UnixTerminal() {
 
           term.write(`\x1b[1;32m$ \x1b[0m`);
           break;
+
+        case 'about':
+
+          const argTable = [
+            ['-w', 'Work Experience'],
+            ['-pub', 'Publications']
+          ];
+
+          const workTable = [
+            ['Full Stack Developer', 'OMERS', 'Toronto, CA', 'Jan 2024 - Apr 2024'],
+            ['Software Developer', 'CIBC', 'Toroto, CA', 'Jun 2024 - Dec 2024'],
+            ['Software Engineer', 'Geotab', 'Oakville, CA', 'Jan 2024 - Apr 2024'],
+            ['Quantitative Analyst', 'MIZUHO', 'Tokyo, JP', 'May 2022 - Aug 2022'],
+            ['Full Stack Developer', 'TOYOTA Motor Corportaion', 'Tokyo, JP', 'May 2021 - Aug 2021']
+          ];
+
+          const publicationTable = [
+            ['Competitive Dynamics Between 2 Bird Species', 'Austin Yang, Chiung Joyce Wu', '2024'],
+            ['Impact of Covid on CS Education', 'Dr. Brian Harrington, Austin Yang, et al', '2023-2024'],
+            ['Coronavirus Detection using photonics', 'Akshat Modi, Austin Yang, Akriti Sharma', '2022-2023']
+          ];
+     
+
+          if(args.length === 1){
+            term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}Just a bit about myself! I'm Austin Yang, a 4th year Computer Science, Statistics, and Biology student at the University of Toronto. I have had the opportunity to explore my interests in various fields through academic coursework, research, and industry experience. Throughout my CS & Stats journey, I have learned different programming languages, and developed a strong foundation in algorithms, data structures, and software engineering. Whereas in my Biology studies, I have gained knowledge about the structure and function of biological systems, and have conducted research on topics such as protein folding and metabolism. As I move forward in my academic and professional journey, I also developed an interest in modern world finance, and I am excited to continue exploring the intersections between computer science and these different fields, and to use my skills to link these subjects together. As of right now, my interest lies in Financial Technology and Quantitative Development, where you use mathematical models, computational techniques, and statistical analysis to succeed in the financial domain.${resetStyle}`);
+
+            term.writeln('\n');
+
+            term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}Here is a list of other arguments you can append to about:${resetStyle}`);
+            term.writeln('\n');
+            
+            term.writeln(`${lightBlueColor}+----------+------------------------------------------------+${resetStyle}`);
+            term.writeln(`${lightBlueColor}| Argument | Description                                    |${resetStyle}`);
+            term.writeln(`${lightBlueColor}+----------+------------------------------------------------+${resetStyle}`);
+
+            argTable.forEach((row) => {
+              const [arg, description] = row;
+              const argFormatted = arg.padEnd(10); // Pad argument to be consistent
+              const descriptionFormatted = description.padEnd(44); // Pad description to be consistent
+              term.writeln(`${lightBlueColor}| ${argFormatted} | ${descriptionFormatted} |${resetStyle}`);
+            });
+
+            term.writeln(`${lightBlueColor}+----------+------------------------------------------------+${resetStyle}`);
+            term.writeln('\n');
+            term.write(`\x1b[1;32m$ \x1b[0m`);
+            
+            break;
+          }
+          else if (args[1] === '-w'){
+            const aboutArg = args[1];
+
+            if(args[0] == 'about'){
+               // Table for work experience
+            term.writeln(`${lightBlueColor}${boldStyle}\nWork Experience:${resetStyle}`);
+            term.writeln(`${lightBlueColor}+------------------------+----------------------------+-------------------+--------------------------+${resetStyle}`);
+            term.writeln(`${lightBlueColor}| Role                   | Company                    | Location          | Duration                 |${resetStyle}`);
+            term.writeln(`${lightBlueColor}+------------------------+----------------------------+-------------------+--------------------------+${resetStyle}`);
+            workTable.forEach((row) => {
+              const [role, company, location, duration] = row;
+              const roleFormatted = role.padEnd(22); // Pad role to be consistent
+              const companyFormatted = company.padEnd(26); // Pad company to be consistent
+              const locationFormatted = location.padEnd(17); // Pad location to be consistent
+              const durationFormatted = duration.padEnd(22); // Pad duration to be consistent
+              term.writeln(`${lightBlueColor}| ${roleFormatted} | ${companyFormatted} | ${locationFormatted} | ${durationFormatted}   |${resetStyle}`);
+            });
+            term.writeln(`${lightBlueColor}+------------------------+----------------------------+-------------------+--------------------------+${resetStyle}`);
+            
+            term.writeln('\n');
+            term.write(`\x1b[1;32m$ \x1b[0m`);
+            }
+
+            break;
+          }
+          else if(args[1] === '-pub'){
+            const aboutArg = args[1];
+
+            if(args[0] == 'about'){
+              term.writeln(`${lightBlueColor}${boldStyle}\nPublications:${resetStyle}`);
+              term.writeln(`${lightBlueColor}+------------------------------------------------------+--------------------------------------------+---------------------+${resetStyle}`);
+              term.writeln(`${lightBlueColor}| Title                                                | Author                                     | Year                |${resetStyle}`);
+              term.writeln(`${lightBlueColor}+------------------------------------------------------+--------------------------------------------+---------------------+${resetStyle}`);
+              publicationTable.forEach((row) => {
+                const [title, author, year] = row;
+                const titleFormatted = title.padEnd(54); // Pad title to be consistent
+                const authorFormatted = author.padEnd(40); // Pad author to be consistent
+                const yearFormatted = year.padEnd(20); // Pad year to be consistent
+                term.writeln(`${lightBlueColor}|${titleFormatted}|${authorFormatted}    | ${yearFormatted}|${resetStyle}`);
+              });
+              term.writeln(`${lightBlueColor}+------------------------------------------------------+--------------------------------------------+---------------------+${resetStyle}`);
+              term.writeln('\n');
+              term.write(`\x1b[1;32m$ \x1b[0m`);
+              break;
+            }
+          }
+          else{
+            term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}Invalid about option: ${args[1]}${resetStyle}`);
+            term.writeln('\n');
+            term.write(`\x1b[1;32m$ \x1b[0m`);
+            break;
+          }
+          case 'links':
+            const linksTable = [
+              ['LinkedIn', 'https://www.linkedin.com/in/austin-yang-3544061ba/'],
+              ['GitHub', 'https://github.com/EkVid/'],
+              ['Personal Website', 'https://austinyt.in'],
+            ];
+              if (args.length === 1) {
+              term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}Links to my other portfolios:${resetStyle}`);
+              term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}\`links -number\` will redirect to the web page, where 'number' represents the order of the links. Ex: \`links -1\` for LinkedIn.${resetStyle}`);
+              term.writeln(verticalPadding);
+
+              // Draw top border for links table
+              const topBorderLinks = `+${'-'.repeat(cols - 2)}+`;
+              term.writeln(`${lightBlueColor}${topBorderLinks}${resetStyle}`);
+  
+              // Display links in a structured way
+              linksTable.forEach((row, index) => {
+                const [linkName, url] = row;
+  
+                // Center the link name and URL
+                const linkFormatted = linkName.padEnd(20); // Link name column width (20 characters)
+                const urlFormatted = url
+                  .padStart(Math.floor((cols - 2 - linkFormatted.length) / 2) + url.length)
+                  .padEnd(cols - 2 - linkFormatted.length); // Center the URL
+  
+                term.writeln(`${lightBlueColor}|${linkFormatted}${urlFormatted}|${resetStyle}`);
+              });
+  
+              // Draw bottom border for links table
+              const bottomBorderLinks = `+${'-'.repeat(cols - 2)}+`;
+              term.writeln(`${lightBlueColor}${bottomBorderLinks}${resetStyle}`);
+            } else {
+              // Handle link selection with -1 or -2
+              const linkArg = args[1];
+  
+              switch (linkArg) {
+                case '-1': // LinkedIn
+                  term.writeln(`${verticalPadding}${lightBlueColor}Opening LinkedIn: https://www.linkedin.com/in/austin-yang-3544061ba/${resetStyle}`);
+                  window.open('https://www.linkedin.com/in/austin-yang-3544061ba/', '_blank');
+                  break;
+                case '-2': // GitHub
+                  term.writeln(`${verticalPadding}${lightBlueColor}Opening GitHub: https://github.com/EkVid/${resetStyle}`);
+                  window.open('https://github.com/EkVid/', '_blank');
+                  break;
+                default:
+                  term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}Invalid link option: ${linkArg}${resetStyle}`);
+                  break;
+              }
+            }
+            term.write(`\n\n`);
+            term.write(`\x1b[1;32m$ \x1b[0m`);
+            break;  
+  
         case 'clear':
           term.clear();
           displayWelcome();
           break;
+
         case 'echo':
           term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}${args.slice(1).join(' ')}${verticalPadding}${resetStyle}`);
           term.write(`\x1b[1;32m$ \x1b[0m`);
           break;
+
         default:
           term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}Command not found: ${command}${verticalPadding}${resetStyle}`);
           term.write(`\x1b[1;32m$ \x1b[0m`);
