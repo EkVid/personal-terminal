@@ -1,10 +1,12 @@
 'use client';
 import { useEffect, useRef } from 'react';
+import dynamic from 'next/dynamic';
 import { Terminal } from 'xterm';
 import 'xterm/css/xterm.css';
 import { FitAddon } from 'xterm-addon-fit';
 
-export default function UnixTerminal() {
+
+const UnixTerminal = () => {
   const terminalRef = useRef(null);
   let currentInput = '';
   let chatAttempts = 0; 
@@ -376,3 +378,5 @@ export default function UnixTerminal() {
 
   return <div ref={terminalRef} className="h-screen w-full bg-black" />;
 }
+
+export default dynamic(() => Promise.resolve(UnixTerminal), { ssr: false });
