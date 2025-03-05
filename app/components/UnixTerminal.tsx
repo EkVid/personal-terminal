@@ -7,6 +7,7 @@ import { FitAddon } from 'xterm-addon-fit';
 export default function UnixTerminal() {
   const terminalRef = useRef(null);
   let currentInput = '';
+  let chatAttempts = 0; 
 
   useEffect(() => {
     if (!terminalRef.current) return;
@@ -29,16 +30,30 @@ export default function UnixTerminal() {
 
     const cols = term.cols;
     const welcomeMsg = '===== Welcome to Austin\'s Personal Terminal! =====';
-    const helpMsg = 'Type `help` to see available commands.';
+    const helpMsg = 'Type `ls` to see available commands.';
+    const additionalMsg = '====== This is a terminal version of my website designed for those who preferred to talk to computers rather than click around 🙂 =======';
+    const additionalMsg2 = '======= If you want to learn about me in a more visually appealing way, type `sure` below ========';
     const padding = Math.max(0, Math.floor((cols - welcomeMsg.length) / 2));
     const verticalPadding = '\n'.repeat(3); // margin top
     const verticalPaddingHelp = '\n'.repeat(2);
     const verticalPaddingInput = '\n'.repeat(1);
     const paddedWelcome = ' '.repeat(padding) + welcomeMsg;
 
+    const centerMessage = (msg: any) => {
+      const padding = Math.max(0, Math.floor((cols - msg.length) / 2));
+      return ' '.repeat(padding) + msg;
+    };
+    
+    // Centered and dimmed messages
+    const dimStyle = '\x1b[38;5;245m'; // Dim text for smaller effect
+    const resetStyle = '\x1b[0m';
+    
+
     // Function to display the welcome message and the initial prompt
     const displayWelcome = () => {
       term.writeln(verticalPadding + `\x1b[1;32m\x1b[1m${paddedWelcome}\x1b[0m`);
+      term.writeln(verticalPaddingHelp + `${dimStyle}${centerMessage(additionalMsg)}${resetStyle}`);
+      term.writeln(verticalPaddingHelp + `${dimStyle}${centerMessage(additionalMsg2)}${resetStyle}`);
       term.writeln(verticalPaddingHelp + `\x1b[1;32m${helpMsg}\x1b[0m`);
       term.write(verticalPaddingInput + `\x1b[1;32m$ \x1b[0m`);
     };
@@ -56,13 +71,28 @@ export default function UnixTerminal() {
       const verticalPadding = '\n'; // Adjust this for vertical padding if needed
 
       switch (command) {
+
+        case 'sure':
+          window.open('https://austinyt.in', '_blank');
+          term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}Well you are back, then I assume you prefer to talk to computers :)${resetStyle}`);
+          term.writeln(verticalPadding);
+          term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}JK, hope you have fun :)${resetStyle}`);
+          term.writeln(verticalPadding);
+          term.write(`\x1b[1;32m$ \x1b[0m`);
+
+          break;
+ 
         case 'help':
+          term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}Welcome to the Ultra Mega Super Secret Terminal (I don't remember I listed this option under ls), where nothing is as it seems (but don't worry, it's mostly harmless). If you need assistance, you're in the right place! 🌟 Here's what you can do... (spoiler: it’s not much, but it's fun!)${resetStyle}`);
+          term.writeln(verticalPadding);
+        case 'ls':
           // Table structure for commands with a box around it
           const table = [
             ['about', 'Something About Me'],
             ['links', 'Links to my other portfolios'],
+            ['res', 'My Resume'],
             ['clear', 'Clear the terminal screen'],
-            ['echo <message>', 'Display the provided message in the terminal'],
+            ['chat', 'Just want to chat with someone or is it actually someone?'],
           ];
 
           term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}Available Commands:${resetStyle}`);
@@ -96,13 +126,14 @@ export default function UnixTerminal() {
         case 'about':
 
           const argTable = [
-            ['-w', 'Work Experience'],
-            ['-pub', 'Publications']
+            ['-w', 'Internship Work Experience'],
+            ['-pub', 'Publications'],
+            ['-pro', 'Projects']
           ];
 
           const workTable = [
             ['Full Stack Developer', 'OMERS', 'Toronto, CA', 'Jan 2024 - Apr 2024'],
-            ['Software Developer', 'CIBC', 'Toroto, CA', 'Jun 2024 - Dec 2024'],
+            ['Software Developer', 'CIBC', 'Toronto, CA', 'Jun 2024 - Dec 2024'],
             ['Software Engineer', 'Geotab', 'Oakville, CA', 'Jan 2024 - Apr 2024'],
             ['Quantitative Analyst', 'MIZUHO', 'Tokyo, JP', 'May 2022 - Aug 2022'],
             ['Full Stack Developer', 'TOYOTA Motor Corportaion', 'Tokyo, JP', 'May 2021 - Aug 2021']
@@ -136,6 +167,7 @@ export default function UnixTerminal() {
 
             term.writeln(`${lightBlueColor}+----------+------------------------------------------------+${resetStyle}`);
             term.writeln('\n');
+
             term.write(`\x1b[1;32m$ \x1b[0m`);
             
             break;
@@ -186,6 +218,13 @@ export default function UnixTerminal() {
               break;
             }
           }
+          else if(args[1] === '-pro'){
+            term.writeln(`${lightBlueColor}${boldStyle}\nWhy bother to have another section for project when I can just show you my Github :)${resetStyle}`);
+            window.open('https://github.com/EkVid/', '_blank');
+            term.writeln('\n');
+            term.write(`\x1b[1;32m$ \x1b[0m`);
+            break;
+          }
           else{
             term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}Invalid about option: ${args[1]}${resetStyle}`);
             term.writeln('\n');
@@ -224,17 +263,21 @@ export default function UnixTerminal() {
               const bottomBorderLinks = `+${'-'.repeat(cols - 2)}+`;
               term.writeln(`${lightBlueColor}${bottomBorderLinks}${resetStyle}`);
             } else {
-              // Handle link selection with -1 or -2
+              // Handle link selection with -1, -2, or -3
               const linkArg = args[1];
   
               switch (linkArg) {
                 case '-1': // LinkedIn
-                  term.writeln(`${verticalPadding}${lightBlueColor}Opening LinkedIn: https://www.linkedin.com/in/austin-yang-3544061ba/${resetStyle}`);
+                  term.writeln(`${verticalPadding}${lightBlueColor}Opened LinkedIn: https://www.linkedin.com/in/austin-yang-3544061ba/${resetStyle}`);
                   window.open('https://www.linkedin.com/in/austin-yang-3544061ba/', '_blank');
                   break;
                 case '-2': // GitHub
-                  term.writeln(`${verticalPadding}${lightBlueColor}Opening GitHub: https://github.com/EkVid/${resetStyle}`);
+                  term.writeln(`${verticalPadding}${lightBlueColor}Opened GitHub: https://github.com/EkVid/${resetStyle}`);
                   window.open('https://github.com/EkVid/', '_blank');
+                  break;
+                case '-3': // personal web
+                  term.writeln(`${verticalPadding}${lightBlueColor}Opened Personal Website: https://austinyt.in${resetStyle}`);
+                  window.open("https://austinyt.in", '_blank');
                   break;
                 default:
                   term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}Invalid link option: ${linkArg}${resetStyle}`);
@@ -244,15 +287,55 @@ export default function UnixTerminal() {
             term.write(`\n\n`);
             term.write(`\x1b[1;32m$ \x1b[0m`);
             break;  
+        
+        case 'res':
+          window.open('https://austinyt.in/resume.pdf', '_blank');
+          term.writeln(`${verticalPadding}${lightBlueColor}Redirected to Resume Page${resetStyle}`);
+          term.writeln('\n');
+          term.write(`\x1b[1;32m$ \x1b[0m`);
+          break;
   
         case 'clear':
           term.clear();
           displayWelcome();
           break;
 
-        case 'echo':
-          term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}${args.slice(1).join(' ')}${verticalPadding}${resetStyle}`);
-          term.write(`\x1b[1;32m$ \x1b[0m`);
+        case 'chat':
+          const asciiArt = [`(o^.^)`, `(°///°)`, `¯\_(ツ)_/¯`];
+
+          chatAttempts++; // Increment the chat attempt counter
+
+          if(chatAttempts === 1){
+            term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}${asciiArt[0]}: "Server busy, please try again!"${resetStyle}`);
+            term.writeln('\n');
+            term.write(`\x1b[1;32m$ \x1b[0m`);
+          }
+          else if(chatAttempts === 2){
+            term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}${asciiArt[1]}: "Server still busy, please try later!"${resetStyle}`);
+            term.writeln('\n');
+            term.write(`\x1b[1;32m$ \x1b[0m`);
+          }
+          else if(chatAttempts === 3){
+            term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}${asciiArt[2]}: "I said server busy! Go check something else!"${resetStyle}`);
+            term.writeln('\n');
+            term.write(`\x1b[1;32m$ \x1b[0m`);
+          }
+          else if(chatAttempts === 6){
+            term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}${asciiArt[2]}: "Okay enough, why not check this site out: https://chatgpt.com/"${resetStyle}`);
+            term.writeln('\n');
+            term.write(`\x1b[1;32m$ \x1b[0m`);
+          }
+          else if(chatAttempts === 7){
+            window.open("https://chatgpt.com/", '_blank');
+            term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}${asciiArt[2]}: "I already took you there, now stop doing chat"${resetStyle}`);
+            term.writeln('\n');
+            term.write(`\x1b[1;32m$ \x1b[0m`);
+          }
+          else{
+            term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}Silence...${resetStyle}`);
+            term.writeln('\n');
+            term.write(`\x1b[1;32m$ \x1b[0m`);
+          }
           break;
 
         default:
