@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic';
 import { Terminal } from 'xterm';
 import 'xterm/css/xterm.css';
 import { FitAddon } from 'xterm-addon-fit';
-import { Animation, displayWelcomeAnim } from './Animation';
 
 
 const UnixTerminal = () => {
@@ -30,15 +29,6 @@ const UnixTerminal = () => {
     term.loadAddon(fitAddon);
     term.open(terminalRef.current);
     fitAddon.fit();
-
-     // Start the floating numbers animation
-     Animation(term, term.cols, term.rows);
-
-    //  // Transition to the welcome message after the animation ends
-    //  setTimeout(() => {
-    //    displayWelcomeAnim(term, term.cols);
-    //  }, 2000); // Wait for 2 seconds before showing the welcome message
- 
 
     const cols = term.cols;
     const welcomeMsg = '===== Welcome to Austin\'s Personal Terminal! =====';
@@ -71,7 +61,7 @@ const UnixTerminal = () => {
     };
 
     // Initial welcome message and prompt display
-    // displayWelcome();
+    displayWelcome();
 
     function handleCommand(input: any) {
       const args = input.trim().split(' ');
