@@ -134,7 +134,8 @@ const UnixTerminal = () => {
           ];
 
           const workTable = [
-            ['Full Stack Developer', 'OMERS', 'Toronto, CA', 'Jan 2024 - Apr 2024'],
+            ['Software Developer', 'RBC', 'Toronto, CA', 'May 2025 - Aug 2025'],
+            ['Full Stack Developer', 'OMERS', 'Toronto, CA', 'Jan 2025 - Apr 2025'],
             ['Software Developer', 'CIBC', 'Toronto, CA', 'Jun 2024 - Dec 2024'],
             ['Software Engineer', 'Geotab', 'Oakville, CA', 'Jan 2024 - Apr 2024'],
             ['Quantitative Analyst', 'MIZUHO', 'Tokyo, JP', 'May 2022 - Aug 2022'],
