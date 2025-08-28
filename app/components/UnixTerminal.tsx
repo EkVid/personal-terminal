@@ -94,7 +94,6 @@ const UnixTerminal = () => {
             ['links', 'Links to my other portfolios'],
             ['res', 'My Resume'],
             ['clear', 'Clear the terminal screen'],
-            ['chat', 'Just want to chat with someone or is it actually someone?'],
           ];
 
           term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}Available Commands:${resetStyle}`);
@@ -134,6 +133,7 @@ const UnixTerminal = () => {
           ];
 
           const workTable = [
+            ['DevOps Engineer', 'Ericsson', 'Ottawa, CA', 'Sep 2025 - Dec 2025'],
             ['Software Developer', 'RBC', 'Toronto, CA', 'May 2025 - Aug 2025'],
             ['Full Stack Developer', 'OMERS', 'Toronto, CA', 'Jan 2025 - Apr 2025'],
             ['Software Developer', 'CIBC', 'Toronto, CA', 'Jun 2024 - Dec 2024'],
@@ -302,45 +302,6 @@ const UnixTerminal = () => {
           term.clear();
           displayWelcome();
           break;
-
-        case 'chat':
-          const asciiArt = [`(o^.^)`, `(°///°)`, `¯\_(ツ)_/¯`];
-
-          chatAttempts++; // Increment the chat attempt counter
-
-          if(chatAttempts === 1){
-            term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}${asciiArt[0]}: "Server busy, please try again!"${resetStyle}`);
-            term.writeln('\n');
-            term.write(`\x1b[1;32m$ \x1b[0m`);
-          }
-          else if(chatAttempts === 2){
-            term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}${asciiArt[1]}: "Server still busy, please try later!"${resetStyle}`);
-            term.writeln('\n');
-            term.write(`\x1b[1;32m$ \x1b[0m`);
-          }
-          else if(chatAttempts === 3){
-            term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}${asciiArt[2]}: "I said server busy! Go check something else!"${resetStyle}`);
-            term.writeln('\n');
-            term.write(`\x1b[1;32m$ \x1b[0m`);
-          }
-          else if(chatAttempts === 6){
-            term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}${asciiArt[2]}: "Okay enough, why not check this site out: https://chatgpt.com/"${resetStyle}`);
-            term.writeln('\n');
-            term.write(`\x1b[1;32m$ \x1b[0m`);
-          }
-          else if(chatAttempts === 7){
-            window.open("https://chatgpt.com/", '_blank');
-            term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}${asciiArt[2]}: "I already took you there, now stop doing chat"${resetStyle}`);
-            term.writeln('\n');
-            term.write(`\x1b[1;32m$ \x1b[0m`);
-          }
-          else{
-            term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}Silence...${resetStyle}`);
-            term.writeln('\n');
-            term.write(`\x1b[1;32m$ \x1b[0m`);
-          }
-          break;
-
         default:
           term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}Command not found: ${command}${verticalPadding}${resetStyle}`);
           term.write(`\x1b[1;32m$ \x1b[0m`);
