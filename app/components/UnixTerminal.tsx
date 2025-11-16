@@ -138,7 +138,7 @@ const UnixTerminal = () => {
             ['Data Analyst', 'Political Science Dept', 'Toronto, CA', 'Sep 2024 - Apr 2025'],
             ['Software Developer', 'Mech Engineering Dept', 'Toronto, CA', 'May 2024 - Aug 2024'],
             ['Web Developer', 'Evoluntionary Biology Lab', 'Toronto, CA', 'Sep 2023 - Apr 2024'],
-            ['AI Research Engineer', 'UofT AI', 'Toronto', 'Jun 2023 - Dec 2023'],
+            ['AI Research Engineer', 'UofT AI', 'Toronto, CA', 'Jun 2023 - Dec 2023'],
             ['Bioinformatician', 'Genomic Biology Lab', 'Toronto, CA', 'Sep 2022 - Dec 2022'],
             ['Lab Assistant', 'Integrative Ecology Lab', 'Toronto, CA', 'May 2022 - Aug 2022']
           ]
