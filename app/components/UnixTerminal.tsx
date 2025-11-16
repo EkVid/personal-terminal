@@ -128,11 +128,23 @@ const UnixTerminal = () => {
 
           const argTable = [
             ['-w', 'Internship Work Experience'],
+            ['-pw', 'Part Time Work Experience'],
             ['-pub', 'Publications'],
             ['-pro', 'Projects']
           ];
 
+          const partTimeTable = [
+            ['Teaching Assistant', 'CMS Dept', 'Toronto, CA', 'Sep 2024 - Aug 2026'],
+            ['Data Analyst', 'Political Science Dept', 'Toronto, CA', 'Sep 2024 - Apr 2025'],
+            ['Software Developer', 'Mech Engineering Dept', 'Toronto, CA', 'May 2024 - Aug 2024'],
+            ['Web Developer', 'Evoluntionary Biology Lab', 'Toronto, CA', 'Sep 2023 - Apr 2024'],
+            ['AI Research Engineer', 'UofT AI', 'Toronto', 'Jun 2023 - Dec 2023'],
+            ['Bioinformatician', 'Genomic Biology Lab', 'Toronto, CA', 'Sep 2022 - Dec 2022'],
+            ['Lab Assistant', 'Integrative Ecology Lab', 'Toronto, CA', 'May 2022 - Aug 2022']
+          ]
+
           const workTable = [
+            ['Cybersecurity Engineer', 'KPMG', 'Toronto, CA', 'Jan 2026 - Apr 2026'],
             ['DevOps Engineer', 'Ericsson', 'Ottawa, CA', 'Sep 2025 - Dec 2025'],
             ['Software Developer', 'RBC', 'Toronto, CA', 'May 2025 - Aug 2025'],
             ['Full Stack Developer', 'OMERS', 'Toronto, CA', 'Jan 2025 - Apr 2025'],
@@ -150,7 +162,7 @@ const UnixTerminal = () => {
      
 
           if(args.length === 1){
-            term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}Just a bit about myself! I'm Austin Yang, a 4th year Computer Science, Statistics, and Biology student at the University of Toronto. I have had the opportunity to explore my interests in various fields through academic coursework, research, and industry experience. Throughout my CS & Stats journey, I have learned different programming languages, and developed a strong foundation in algorithms, data structures, and software engineering. Whereas in my Biology studies, I have gained knowledge about the structure and function of biological systems, and have conducted research on topics such as protein folding and metabolism. As I move forward in my academic and professional journey, I also developed an interest in modern world finance, and I am excited to continue exploring the intersections between computer science and these different fields, and to use my skills to link these subjects together. As of right now, my interest lies in Financial Technology and Quantitative Development, where you use mathematical models, computational techniques, and statistical analysis to succeed in the financial domain.${resetStyle}`);
+            term.writeln(`${verticalPadding}${lightBlueColor}${boldStyle}Just a bit about myself! I'm Austin Yang, a 5th year Computer Science, Statistics, and Biology student at the University of Toronto. I have had the opportunity to explore my interests in various fields through academic coursework, research, and industry experience. Throughout my CS & Stats journey, I have learned different programming languages, and developed a strong foundation in algorithms, data structures, and software engineering. Whereas in my Biology studies, I have gained knowledge about the structure and function of biological systems, and have conducted research on topics such as protein folding and metabolism. As I move forward in my academic and professional journey, I also developed an interest in modern world finance, and I am excited to continue exploring the intersections between computer science and these different fields, and to use my skills to link these subjects together. As of right now, my interest lies in Financial Technology and Quantitative Development, where you use mathematical models, computational techniques, and statistical analysis to succeed in the financial domain.${resetStyle}`);
 
             term.writeln('\n');
 
@@ -176,8 +188,6 @@ const UnixTerminal = () => {
             break;
           }
           else if (args[1] === '-w'){
-            const aboutArg = args[1];
-
             if(args[0] == 'about'){
                // Table for work experience
             term.writeln(`${lightBlueColor}${boldStyle}\nWork Experience:${resetStyle}`);
@@ -200,9 +210,29 @@ const UnixTerminal = () => {
 
             break;
           }
+          else if (args[1] === '-pw'){
+            if (args[0] === 'about'){
+              term.writeln(`${lightBlueColor}${boldStyle}\nPart Time Work Experience @ UofT:${resetStyle}`);
+              term.writeln(`${lightBlueColor}+------------------------+----------------------------+-------------------+--------------------------+${resetStyle}`);
+              term.writeln(`${lightBlueColor}| Role                   | Company                    | Location          | Duration                 |${resetStyle}`);
+              term.writeln(`${lightBlueColor}+------------------------+----------------------------+-------------------+--------------------------+${resetStyle}`);
+              partTimeTable.forEach((row) => {
+                const [role, company, location, duration] = row;
+                const roleFormatted = role.padEnd(22); // Pad role to be consistent
+                const companyFormatted = company.padEnd(26); // Pad company to be consistent
+                const locationFormatted = location.padEnd(17); // Pad location to be consistent
+                const durationFormatted = duration.padEnd(22); // Pad duration to be consistent
+                term.writeln(`${lightBlueColor}| ${roleFormatted} | ${companyFormatted} | ${locationFormatted} | ${durationFormatted}   |${resetStyle}`);
+              });
+              term.writeln(`${lightBlueColor}+------------------------+----------------------------+-------------------+--------------------------+${resetStyle}`);
+              
+              term.writeln('\n');
+              term.write(`\x1b[1;32m$ \x1b[0m`);
+  
+              break;
+            }
+          }
           else if(args[1] === '-pub'){
-            const aboutArg = args[1];
-
             if(args[0] == 'about'){
               term.writeln(`${lightBlueColor}${boldStyle}\nPublications:${resetStyle}`);
               term.writeln(`${lightBlueColor}+------------------------------------------------------+--------------------------------------------+---------------------+${resetStyle}`);
